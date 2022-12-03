@@ -31,14 +31,14 @@ class Day2(Day):
             'Y': Move.PAPER,
             'Z': Move.SCISSORS
         }
-        count = 0
+        score = 0
 
         for entry in self.strategy_guide:
             player_move = (entry.split(' ')[1]).strip()
             rival_move = entry.split(' ')[0]
-            count += Day2.get_player_score(player_moves[player_move], self.rival_moves[rival_move])
+            score += Day2.get_player_score(player_moves[player_move], self.rival_moves[rival_move])
 
-        return count
+        return score
 
     def part2(self):
         outcome = {
@@ -46,15 +46,15 @@ class Day2(Day):
             'Y': Outcome.DRAW,
             'Z': Outcome.WIN
         }
-        count = 0
+        score = 0
 
         for entry in self.strategy_guide:
             desired_outcome = (entry.split(' ')[1]).strip()
             rival_move = entry.split(' ')[0]
             player_move = Day2.calculate_player_move(self.rival_moves[rival_move], outcome[desired_outcome])
-            count += Day2.get_player_score(player_move, self.rival_moves[rival_move])
+            score += Day2.get_player_score(player_move, self.rival_moves[rival_move])
 
-        return count
+        return score
 
     @staticmethod
     def get_player_score(player_move, rival_move):
@@ -75,6 +75,3 @@ class Day2(Day):
         else:
             losing_move = (rival_move.value % 3 - 2) % 3 + 1
             return Move(losing_move)
-
-
-
